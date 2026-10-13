@@ -43,20 +43,17 @@ jobs:
                   repository: ${{ inputs.pr_repo || github.repository }}
                   ref: ${{ inputs.pr_branch || (github.event_name == 'schedule' && 'dev' || github.ref) }}
 
-            - uses: pnpm/action-setup@v6
-
             - name: Use Node.js 24
               uses: actions/setup-node@v6
               with:
                   node-version: 24
-                  cache: "pnpm"
 
             - name: Install dependencies
               run: |
-                  pnpm install --frozen-lockfile --prefer-offline
-
+                  npm i -g yarn && yarn install
+                  
             - name: Build Equicord Reporter Version
-              run: pnpm buildReporter
+              run: yarn run buildReporter
 
             - name: Run Reporter
               timeout-minutes: 10
