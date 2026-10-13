@@ -21,29 +21,29 @@ jobs:
         steps:
             - uses: actions/checkout@v7
 
-            - uses: pnpm/action-setup@v6
+            - uses: yarn/action-setup@v6
 
             - name: Use Node.js 24
               uses: actions/setup-node@v6
               with:
                   node-version: 24
-                  cache: "pnpm"
+                  cache: "yarn"
 
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+              run: yarn install
 
             - name: Build web
-              run: pnpm buildWebStandalone
+              run: yarn run buildWebStandalone
 
             - name: Build
-              run: pnpm buildStandalone
+              run: yarn run buildStandalone
 
             - name: Generate plugin lists
               run: |
-                  pnpm generatePluginJson dist/plugins.json
-                  pnpm generateEquicordPluginJson dist/equicordplugins.json
-                  pnpm generateVencordPluginJson dist/vencordplugins.json
-                  pnpm generateDevsList dist/devs.json
+                  yarn run generatePluginJson dist/plugins.json
+                  yarn run generateEquicordPluginJson dist/equicordplugins.json
+                  yarn run generateVencordPluginJson dist/vencordplugins.json
+                  yarn run generateDevsList dist/devs.json
 
             - name: Collect files to be released
               run: |
