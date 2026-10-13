@@ -16,22 +16,20 @@ jobs:
 
         steps:
             - uses: actions/checkout@v7
-            - uses: pnpm/action-setup@v6
 
             - name: Use Node.js 24
               uses: actions/setup-node@v6
               with:
                   node-version: 24
-                  cache: "pnpm"
-
+                  
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+              run: npm i -g yarn && yarn install
 
             - name: Lint & Test if desktop version compiles
-              run: pnpm test
+              run: yarn test
 
             - name: Test if web version compiles
-              run: pnpm buildWeb
+              run: yarn run buildWeb
 
             - name: Test if plugin structure is valid
-              run: pnpm generatePluginJson
+              run: yarn run generatePluginJson
