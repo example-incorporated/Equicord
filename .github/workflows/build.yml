@@ -21,16 +21,13 @@ jobs:
         steps:
             - uses: actions/checkout@v7
 
-            - uses: yarn/action-setup@v6
-
-            - name: Use Node.js 24
-              uses: actions/setup-node@v6
+            - uses: actions/setup-node@v7.1.0
               with:
-                  node-version: 24
-                  cache: "yarn"
-
+                    # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
+                    package-manager-cache: true # optional, default is true
+                    # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.
             - name: Install dependencies
-              run: yarn install
+              run: npm i -g yarn && yarn install
 
             - name: Build web
               run: yarn run buildWebStandalone
